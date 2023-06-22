@@ -20,4 +20,4 @@ filelist=filename.split('.',1)
 if len(filelist) < 2:
     raise ValueError("ERROR File does not have an extension")
 else:
-    print("The extension of the file is: " + filelist[1])
+    print(f"The extension of the file is: {filelist[1]}")
