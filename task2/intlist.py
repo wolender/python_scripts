@@ -16,10 +16,11 @@ for num in args.list:
         unique_list.append(num)
     count+=1
 
+unique_tuple=tuple(unique_list)
 
-max = unique_list[0]
-min = unique_list[0]
-for num in unique_list:
+max = unique_tuple[0]
+min = unique_tuple[0]
+for num in unique_tuple:
     if num > max:
         max=num
     elif num < min:
