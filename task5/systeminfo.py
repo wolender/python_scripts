@@ -31,7 +31,7 @@ if args.distro:
 if args.memory:
     memory = psutil.virtual_memory()
 
-    print(f"Total Memory: {memory.total/1000000000} GBs, Used: {memory.used/1000000000} GBs, Free: {memory.free/1000000000} GBs")
+    print(f"Total Memory: {memory.total/1000000000:.2f} GBs, Used: {memory.used/1000000000:.2f} GBs, Free: {memory.free/1000000000:.2f} GBs")
 
 if args.cpu:
     print(f"CPU Model: {platform.processor()}, Cores: {psutil.cpu_count()}, Speed: {psutil.cpu_freq().current/1000} GHz")
@@ -44,8 +44,10 @@ if args.load:
 
 if args.ip:
 
-    ifconfig_output = subprocess.check_output(['ifconfig', 'en0']).decode('utf-8') #use subprocess to call ifconfig en0
+    ifconfig_output = subprocess.check_output(['ifconfig']).decode('utf-8') #use subprocess to call ifconfig
 
-    ip_address = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', ifconfig_output) #use reg expr to get ip address 
+    ip_address = re.findall("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", ifconfig_output) #use reg expr to get ip address 
 
-    print(f"IP Address: {ip_address.group()}") 
+    for address in ip_address:
+        if "127.0.0.1" not in address and ".255" not in address:
+            print(f"IP Address: {address}") 
